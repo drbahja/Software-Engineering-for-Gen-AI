@@ -21,7 +21,7 @@ Everything else (LangChain, messages, the agent loop) stays the same. Libraries 
 ### 1. Get the code
 
 ```bash
-git clone <YOUR_GITHUB_REPO_URL>
+git clone https://github.com/drbahja/first_agent_deepseek.git
 cd first_agent_deepseek
 ```
 
