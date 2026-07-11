@@ -2,6 +2,8 @@
 
 Training materials for the 4-day course on software engineering for generative AI applications.
 
+**🌐 Course website:** https://drbahja.github.io/Software-Engineering-for-Gen-AI/ — start here! It has the course overview, the day-by-day labs, and step-by-step instructions.
+
 ## Structure
 
 ```
