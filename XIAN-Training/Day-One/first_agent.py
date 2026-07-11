@@ -3,8 +3,8 @@ First AI Agent — DeepSeek edition (CLI version)
 ================================================
 A minimal LLM-powered agent built with LangChain, connected to DeepSeek.
 
-DeepSeek's API is OpenAI-compatible, so we reuse the ChatOpenAI class
-and simply point it at DeepSeek's endpoint (base_url).
+Uses LangChain's dedicated DeepSeek integration (ChatDeepSeek), which
+talks to DeepSeek's API directly.
 
 Run step by step in VS Code (see README.md) or run the whole file:
     python first_agent.py
@@ -16,7 +16,7 @@ Run step by step in VS Code (see README.md) or run the whole file:
 import os
 
 from dotenv import load_dotenv                      # reads the .env file
-from langchain_openai import ChatOpenAI             # OpenAI-compatible chat client
+from langchain_deepseek import ChatDeepSeek         # DeepSeek chat client
 from langchain_core.messages import HumanMessage, SystemMessage
 
 # ------------------------------------------------------------------
@@ -31,14 +31,12 @@ if not deepseek_key:
 # ------------------------------------------------------------------
 # STEP 3 — Create the model
 # ------------------------------------------------------------------
-# base_url redirects requests from OpenAI to DeepSeek.
 # Models: "deepseek-chat" (general) or "deepseek-reasoner" (reasoning).
 llm_name = "deepseek-chat"
 
-model = ChatOpenAI(
+model = ChatDeepSeek(
     api_key=deepseek_key,
     model=llm_name,
-    base_url="https://api.deepseek.com",
     temperature=0.7,
 )
 

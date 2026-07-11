@@ -4,13 +4,13 @@ A minimal AI agent built with LangChain, connected to **DeepSeek** (works in Chi
 
 ## What changed from the original OpenAI version?
 
-DeepSeek's API is **OpenAI-compatible**, so the refactor is only 3 lines:
+The code now uses LangChain's dedicated DeepSeek integration:
 
 | | Before (OpenAI) | After (DeepSeek) |
 |---|---|---|
 | API key | `OPENAI_API_KEY` | `DEEPSEEK_API_KEY` |
 | Model | `gpt-3.5-turbo` | `deepseek-chat` |
-| Endpoint | (default) | `base_url="https://api.deepseek.com"` |
+| Client class | `ChatOpenAI` (`langchain-openai`) | `ChatDeepSeek` (`langchain-deepseek`) |
 
 Everything else (LangChain, messages, the agent loop) stays the same. Libraries were also updated from LangChain 0.1.x (2024) to the current 0.3+ series, and unused packages (pyodbc, pandas, SQLAlchemy…) were removed.
 
@@ -72,11 +72,11 @@ DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxx
 
 Open `first_agent.py`. The file is organised in 7 numbered steps. You can run pieces of it interactively: select some lines and press **Shift+Enter** ("Run Selection in Python Terminal"), or use `# %%` cells with the Jupyter extension.
 
-**Step 1 — Imports.** `ChatOpenAI` is LangChain's client for any OpenAI-compatible API — including DeepSeek. `HumanMessage` / `SystemMessage` are how LangChain represents chat roles.
+**Step 1 — Imports.** `ChatDeepSeek` is LangChain's client for the DeepSeek API. `HumanMessage` / `SystemMessage` are how LangChain represents chat roles.
 
 **Step 2 — Load the key.** `load_dotenv()` reads `.env` and `os.getenv` pulls the key into a variable. Keys live in `.env`, never in code.
 
-**Step 3 — Create the model.** The important line is `base_url="https://api.deepseek.com"` — it redirects every request to DeepSeek instead of OpenAI. `temperature=0.7` controls creativity (0 = deterministic, ~1.3 = very creative).
+**Step 3 — Create the model.** `ChatDeepSeek` talks to `https://api.deepseek.com` by default. `temperature=0.7` controls creativity (0 = deterministic, ~1.3 = very creative).
 
 **Step 4 — One call.** Uncomment the two lines and run them:
 
