@@ -150,29 +150,67 @@ python -m venv .venv
 
 <!-- STEP 9 -->
 <div class="step">
-  <h2><span class="step-number">9</span>Read the agent, step by step 📖</h2>
-  <p>Open <code>first_agent.py</code>. It is organised in 7 numbered steps — read the comments as you go. The heart of it is just this:</p>
-  <pre><code>model = ChatDeepSeek(
+  <h2><span class="step-number">9</span>Read the agent — 4 sections 📖</h2>
+  <p>Open <code>first_agent.py</code>. The whole program is made of <strong>four sections</strong>. Understand these four, and you understand every LLM application you will ever build.</p>
+
+  <h3>Section 1 — The import statements</h3>
+  <pre><code>import os
+
+from dotenv import load_dotenv                  # reads the .env file
+from langchain_deepseek import ChatDeepSeek     # DeepSeek chat client
+from langchain_core.messages import HumanMessage, SystemMessage</code></pre>
+  <p>Imports are the tools we borrow before we start working:</p>
+  <ul>
+    <li><code>os</code> — talk to the operating system (we use it to read environment variables)</li>
+    <li><code>load_dotenv</code> — loads your secrets from the <code>.env</code> file</li>
+    <li><code>ChatDeepSeek</code> — LangChain's client for the DeepSeek model</li>
+    <li><code>HumanMessage</code>, <code>SystemMessage</code> — the two kinds of messages we send to the model</li>
+  </ul>
+  <p class="tip"><strong>💡 Notice</strong>Every import maps to a line in <code>requirements.txt</code>. That is the connection: the file promises the tools, the imports use them.</p>
+
+  <h3>Section 2 — The DeepSeek configuration</h3>
+  <pre><code>load_dotenv()                                   # read the .env file
+deepseek_key = os.getenv("DEEPSEEK_API_KEY")    # take the key out of it
+
+model = ChatDeepSeek(
     api_key=deepseek_key,   # your secret, from .env
     model="deepseek-chat",  # which brain to use
     temperature=0.7,        # creativity: 0 = strict, 1.3 = wild
-)
+)</code></pre>
+  <p>This is where we <em>configure</em> our connection to the AI. Three decisions live here:</p>
+  <ul>
+    <li><strong>Which key</strong> — loaded from <code>.env</code>, never written in the code</li>
+    <li><strong>Which model</strong> — <code>deepseek-chat</code> for general chat; try <code>deepseek-reasoner</code> later for hard logic problems</li>
+    <li><strong>How creative</strong> — <code>temperature</code>: at <code>0</code> the model gives the same careful answer every time; at <code>1.3</code> it takes risks. Pick based on the job: maths tutor → low, story writer → high.</li>
+  </ul>
 
-def first_agent(messages):
-    res = model.invoke(messages)        # send → think → answer
-    return res</code></pre>
-  <p>And the chat loop at the bottom simply repeats: read your input → send it → print the answer → again, until you type <code>exit</code>.</p>
+  <h3>Section 3 — The system and user prompt</h3>
+  <pre><code>messages = [
+    SystemMessage(content="You are a helpful assistant who is extremely "
+                          "competent as a Computer Scientist! Your name is Rob."),
+    HumanMessage(content="Who was the very first computer scientist?"),
+]
+
+res = model.invoke(messages)   # send both → get the answer
+print(res.content)</code></pre>
+  <p>Two different voices talk to the model:</p>
+  <ul>
+    <li>The <strong>system prompt</strong> is the job description. The user never sees it, but it shapes <em>every</em> answer: personality, rules, language, name. Change it and you change the whole application.</li>
+    <li>The <strong>user prompt</strong> is the actual question, different every time.</li>
+  </ul>
+  <p><code>model.invoke(messages)</code> sends both together, and the answer comes back in <code>res.content</code>. The rest of the file — <code>first_agent()</code> and <code>run_agent()</code> — simply wraps this one call in a loop so you can keep chatting until you type <code>exit</code>.</p>
   <p class="why"><strong>🤔 Is this really an "agent"?</strong>Today it is the simplest possible one: a model wrapped in a loop. A real agent adds memory, tools, and decisions — exactly what we build over the next three days. Every big system starts this small.</p>
+
+  <h3>Section 4 — The UI (user interface)</h3>
+  <p>Right now our agent lives in the terminal — fine for developers, scary for users. There is a second file in the project, <code>streamlit_app.py</code>, which gives the <em>same</em> agent a real web page with a text box and a button.</p>
+  <p class="tip"><strong>👀 Coming in Part 2</strong>After the break we will open <code>streamlit_app.py</code>, see how little code a web UI needs, and run the agent in the browser. For now, notice one thing in the file explorer: the AI logic and the interface live in <em>separate files</em> — that separation is deliberate, and we will discuss why.</p>
 </div>
 
 <!-- STEP 10 -->
 <div class="step">
   <h2><span class="step-number">10</span>Run it! 🚀</h2>
   <pre><code>python first_agent.py</code></pre>
-  <p>When you see <code>Simple AI Agent (DeepSeek): Type 'exit' to quit</code> — say hello. Ask it something hard. Ask it something silly.</p>
-  <p>Then try the web version:</p>
-  <pre><code>streamlit run streamlit_app.py</code></pre>
-  <p>Your browser opens at <code>localhost:8501</code> — the same agent, now with a web page. Notice: the AI logic is identical; only the interface changed. Separating logic from interface is another engineering habit you get for free today.</p>
+  <p>When you see <code>Simple AI Agent (DeepSeek): Type 'exit' to quit</code> — say hello. Ask it something hard. Ask it something silly. (The web version comes in Part 2.)</p>
   <p><strong>🔬 Experiment before the exercise:</strong> ask the agent <em>"My name is Wei"</em>, then ask <em>"What is my name?"</em>. Surprised? Remember what you saw — it matters in a minute.</p>
 </div>
 
