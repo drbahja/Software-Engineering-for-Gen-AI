@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 1 · Lab Part 1 — The AI Lifecycle in Action</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  details { background: #f1f5f9; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--primary-dark); }
+  details[open] summary { margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Course Home</a>
+  <a href="day1-lab-part2.html">Part 2 →</a>
+</div>
+
+<div class="hero">
+  <span class="badge">Day 1 · Lab · Part 1 · ~45 min</span>
+  <h1>The AI Lifecycle in Action 🩺</h1>
+  <p>Before writing any code, learn to think like an AI engineer: plan a complete AI project, step by step.</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <h2>Warm-up (5 min, in pairs)</h2>
+  <p>AI is not only robots and sci-fi movies — it is everywhere. <strong>Name 3 AI applications you have already encountered today.</strong> (Hint: your phone unlocked itself somehow. Your feed chose what to show you. Your map found the fastest route.)</p>
+</div>
+
+<div class="card">
+  <h2>The 7 steps of every AI project</h2>
+  <p>Every real AI system — from self-driving cars to fraud detection — goes through the same lifecycle:</p>
+  <ol>
+    <li><strong>Problem Scoping</strong> — what are we solving, and why does it matter?</li>
+    <li><strong>Data Acquisition</strong> — what data do we need, and where does it come from?</li>
+    <li><strong>Data Exploration</strong> — understand, clean, and prepare the data</li>
+    <li><strong>Modeling</strong> — choose and train a model</li>
+    <li><strong>Model Evaluation</strong> — measure with the <em>right</em> metrics</li>
+    <li><strong>Deployment</strong> — put the model where users need it</li>
+    <li><strong>Maintenance &amp; Monitoring</strong> — keep it working as the world changes</li>
+  </ol>
+  <p class="tip"><strong>💡 Reference: self-driving cars</strong>In the lecture we applied all 7 steps to a self-driving car (cameras + LiDAR data → CNNs → recall on safety-critical objects → deployment on an in-car GPU → retraining on edge cases). Use that example as your model when working below.</p>
+</div>
+
+<!-- EXERCISE -->
+<div class="step" style="border: 2px solid var(--accent);">
+  <h2>🏆 Exercise — plan a diabetes-risk AI system</h2>
+  <p>You are responsible for designing an AI system that predicts whether a patient is at risk of developing <strong>diabetes</strong>, based on their health data. Apply the 7 lifecycle steps to plan this project.</p>
+  <p>For each step, write your answer in one or two sentences. Think critically: what actions would you take, what information do you need, and how does each decision support building a reliable, real-world system?</p>
+  <ol>
+    <li><strong>Problem Scoping:</strong> What is the problem, and why is it important?</li>
+    <li><strong>Data Acquisition:</strong> What data would you collect?</li>
+    <li><strong>Data Exploration:</strong> How would you understand and prepare it?</li>
+    <li><strong>Modeling:</strong> What kind of model could predict diabetes risk?</li>
+    <li><strong>Model Evaluation:</strong> Which metrics, and why?</li>
+    <li><strong>Deployment:</strong> Where and how would the model run?</li>
+    <li><strong>Maintenance &amp; Monitoring:</strong> How do you keep it reliable over time?</li>
+  </ol>
+  <p><strong>Deliverable:</strong> a one-page plan (7 short answers). Be ready to present one step to the class in 1 minute.</p>
+
+  <details>
+    <summary>🔓 Reveal the model answer (only after you finish!)</summary>
+    <table>
+      <tr><th>Step</th><th>Model answer</th></tr>
+      <tr><td>1. Problem Scoping</td><td>Predict diabetes risk so doctors can intervene early and improve patient outcomes.</td></tr>
+      <tr><td>2. Data Acquisition</td><td>Age, gender, BMI, blood pressure, glucose and insulin levels, physical activity, family history.</td></tr>
+      <tr><td>3. Data Exploration</td><td>Handle missing values, outliers, and class imbalance; visualise relationships (e.g., glucose vs. diabetes); clean the data.</td></tr>
+      <tr><td>4. Modeling</td><td>A classification model: logistic regression, decision tree, or random forest.</td></tr>
+      <tr><td>5. Model Evaluation</td><td>Accuracy, precision, recall, F1 — with special weight on <strong>recall</strong>, to avoid missing high-risk patients.</td></tr>
+      <tr><td>6. Deployment</td><td>Inside the hospital's Electronic Health Record system, giving doctors real-time risk predictions.</td></tr>
+      <tr><td>7. Maintenance</td><td>Monitor performance, retrain with new data, watch for model drift, check fairness across patient groups.</td></tr>
+    </table>
+  </details>
+</div>
+
+<div class="card">
+  <h2>✅ What you just practised</h2>
+  <p>Thinking in lifecycle steps is the #1 skill that separates AI engineers from people who just call APIs. You will reuse this exact framework on Day 2 (requirements), Day 3 (data strategy &amp; architecture), and Day 4 (evaluation &amp; deployment).</p>
+  <a class="btn" href="day1-lab-part2.html">Continue to Part 2: Train Your First AI Model →</a>
+</div>
+
+</div>
+
+<footer>
+  Software Engineering for Gen AI · Day 1 · Lab Part 1 ·
+  <a href="https://github.com/drbahja/Software-Engineering-for-Gen-AI">Course repository</a>
+</footer>
+
+</body>
+</html>
