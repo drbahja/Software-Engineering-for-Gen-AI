@@ -43,6 +43,7 @@
     <li>🚗 <strong>"80 km/h"</strong> — 100 images of the speed-limit sign</li>
   </ul>
   <p>Open <a href="https://teachablemachine.withgoogle.com">teachablemachine.withgoogle.com</a> → Image Project → follow along.</p>
+  <p class="tip"><strong>📦 Get the data first</strong><a href="day1-lab-data.zip" download><strong>Download the lab datasets (zip, 1.6 MB)</strong></a> and unzip. Inside: <em>Traffic Sign Datasets</em> (the 3 demo classes, training + testing) and <em>Practice Opportunity Data</em> (adds Turn Left and Wildlife Crossing for your exercise).</p>
   <p class="warn"><strong>⚠️ Access note (China)</strong>Teachable Machine is a Google service and may need the classroom VPN. If it is unreachable, follow the instructor's projector demo and do the exercise with <a href="https://ai.baidu.com/easydl/">Baidu EasyDL</a> — the workflow (upload classes → train → test) is the same.</p>
 
   <h3>Words you will see during training</h3>
@@ -61,9 +62,9 @@
   <h2>🏆 Exercise — two new traffic signs</h2>
   <p>Now on your own (or in pairs): train and evaluate a classifier that recognises two <em>additional</em> traffic signs — <strong>(1) Turn Left</strong> and <strong>(2) Wildlife Crossing</strong>.</p>
   <ol>
-    <li><strong>Data collection:</strong> get the training and testing images for both classes from the <em>Practice Opportunity Data</em> folder (the instructor will share it), or collect ~20 images per class yourself.</li>
+    <li><strong>Data collection:</strong> in the <a href="day1-lab-data.zip" download>lab datasets zip</a>, open <em>Practice Opportunity Data</em> → <em>Training Data</em>: it has the images for both new classes (plus the 3 demo classes).</li>
     <li><strong>Model development:</strong> create an image project, upload both classes, and train with the built-in tools.</li>
-    <li><strong>Model evaluation:</strong> test with 3 held-out images per class. Record every prediction and its confidence.</li>
+    <li><strong>Model evaluation:</strong> test with the images in <em>Testing Data</em> (3 held-out images per class). Record every prediction and its confidence.</li>
   </ol>
   <p><strong>Analyze:</strong> Which sign is recognised more reliably? When the model fails, what do the failing images have in common (angle, lighting, background)?</p>
   <p class="tip"><strong>💡 Experiment like an engineer</strong>Retrain with fewer epochs (e.g. 10 instead of 50) or a much higher learning rate. What happens to accuracy? This is the Modeling ↔ Evaluation loop of the lifecycle — you just lived it.</p>
