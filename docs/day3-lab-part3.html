@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 · Lab Part 3 — Who Does What in an AI Team?</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  details { background: #f1f5f9; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--primary-dark); }
+  details[open] summary { margin-bottom: 10px; }
+  .worksheet td:last-child { width: 40%; }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Course Home</a>
+  <a href="day3-lab-part2.html">← Part 2</a>
+  <a href="day3-lab-part4.html">Part 4 →</a>
+</div>
+
+<div class="hero">
+  <span class="badge">Day 3 · Lab · Part 3 · ~40 min</span>
+  <h1>Who Does What? 👥</h1>
+  <p>AI projects fail without the right team. Learn the 13 key roles — then staff a real project yourself.</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <h2>Step 1 — Meet the roles (15 min)</h2>
+  <p>Keep this table open — it is your reference for the exercise:</p>
+  <table>
+    <tr><th>Role</th><th>Key responsibilities</th></tr>
+    <tr><td><strong>AI Product Manager</strong></td><td>Bridges technical and business teams; defines vision, translates problems, sets metrics</td></tr>
+    <tr><td><strong>Industry Domain Expert</strong></td><td>Provides subject-matter expertise, validates data and features</td></tr>
+    <tr><td><strong>Project Manager</strong></td><td>Coordinates scope, timelines, communication, and risk</td></tr>
+    <tr><td><strong>AI Researcher</strong></td><td>Explores novel models and learning techniques</td></tr>
+    <tr><td><strong>Data Scientist</strong></td><td>Analyzes data, builds models, extracts insights</td></tr>
+    <tr><td><strong>Machine Learning Engineer</strong></td><td>Builds scalable ML pipelines, deploys models</td></tr>
+    <tr><td><strong>Responsible AI / Ethics Lead</strong></td><td>Audits models for fairness, ethics, and bias</td></tr>
+    <tr><td><strong>UX Designer</strong></td><td>Designs intuitive AI interfaces and feedback loops</td></tr>
+    <tr><td><strong>Software Engineer</strong></td><td>Develops applications integrating AI models</td></tr>
+    <tr><td><strong>Solution Architect</strong></td><td>Designs system architecture and integration plan</td></tr>
+    <tr><td><strong>MLOps Architect</strong></td><td>Manages deployment, monitoring, and updates</td></tr>
+    <tr><td><strong>Data Engineer</strong></td><td>Builds ETL pipelines, structures and cleans data</td></tr>
+    <tr><td><strong>Data Architect</strong></td><td>Designs data infrastructure, governance policies</td></tr>
+  </table>
+
+  <h3>The confusing pairs — how to tell them apart</h3>
+  <ul>
+    <li><strong>Data Scientist vs AI Researcher:</strong> the scientist <em>applies</em> known techniques to business data; the researcher <em>invents</em> new techniques.</li>
+    <li><strong>ML Engineer vs MLOps Architect:</strong> the ML engineer <em>builds</em> the pipeline that trains/serves the model; MLOps <em>keeps it running</em> in production (monitoring, updates).</li>
+    <li><strong>Solution Architect vs Data Engineer:</strong> the architect draws the <em>whole system blueprint</em> (cloud, integrations); the data engineer builds the <em>data plumbing</em> inside it.</li>
+    <li><strong>AI Product Manager vs Project Manager:</strong> the product manager decides <em>what to build and why</em>; the project manager makes sure it gets built <em>on time</em>.</li>
+  </ul>
+
+  <h3>Worked examples</h3>
+  <ul>
+    <li><em>"Decide which customer complaints the AI should handle first, based on business value"</em> → <strong>AI Product Manager</strong> (what to build &amp; why = product decision).</li>
+    <li><em>"Check that the model's medical terminology matches how doctors actually write"</em> → <strong>Industry Domain Expert</strong> (real-world subject knowledge).</li>
+  </ul>
+</div>
+
+<!-- EXERCISE -->
+<div class="step" style="border: 2px solid var(--accent);">
+  <h2>🏆 Exercise — staff the chatbot project (20 min, in pairs)</h2>
+  <p><strong>Scenario:</strong> your company is launching an AI-powered <strong>customer-support chatbot</strong> to reduce wait times and improve satisfaction. It must understand inquiries, answer instantly, and escalate to a human when needed.</p>
+  <p><strong>Task:</strong> assign <strong>one</strong> appropriate role from the table above to each task below. Write one short reason ("because…") next to each — the reason is where the learning happens.</p>
+  <table class="worksheet">
+    <tr><th>#</th><th>Task</th><th>Role + why</th></tr>
+    <tr><td>1</td><td>Define the overall AI vision and align it with the business goals</td><td></td></tr>
+    <tr><td>2</td><td>Design and train the chatbot's natural-language processing model</td><td></td></tr>
+    <tr><td>3</td><td>Validate the customer complaint categories with real examples</td><td></td></tr>
+    <tr><td>4</td><td>Set up the cloud infrastructure to store and process chatbot data</td><td></td></tr>
+    <tr><td>5</td><td>Monitor the chatbot's accuracy and response time in production</td><td></td></tr>
+    <tr><td>6</td><td>Ensure fairness and avoid bias in chatbot responses</td><td></td></tr>
+    <tr><td>7</td><td>Build the data pipelines to collect, clean, and store customer chats</td><td></td></tr>
+    <tr><td>8</td><td>Connect the chatbot to the company's CRM system</td><td></td></tr>
+    <tr><td>9</td><td>Design how users interact with the chatbot and receive feedback</td><td></td></tr>
+    <tr><td>10</td><td>Coordinate the project timeline, sprints, and risk-mitigation plans</td><td></td></tr>
+  </table>
+
+  <details>
+    <summary>🔓 Reveal the model answer (only after you finish!)</summary>
+    <table>
+      <tr><th>Task</th><th>Role</th></tr>
+      <tr><td>1. AI vision aligned with business goals</td><td>AI Product Manager</td></tr>
+      <tr><td>2. Design and train the NLP model</td><td>AI Researcher or Data Scientist</td></tr>
+      <tr><td>3. Validate complaint categories with real examples</td><td>Industry Domain Expert</td></tr>
+      <tr><td>4. Cloud infrastructure setup</td><td>Solution Architect</td></tr>
+      <tr><td>5. Monitor accuracy &amp; response time in production</td><td>MLOps Architect</td></tr>
+      <tr><td>6. Fairness and bias</td><td>Responsible AI / Ethics Lead</td></tr>
+      <tr><td>7. Data pipelines for customer chats</td><td>Data Engineer</td></tr>
+      <tr><td>8. Connect chatbot to CRM</td><td>Software Engineer</td></tr>
+      <tr><td>9. User interaction &amp; feedback design</td><td>UX Designer</td></tr>
+      <tr><td>10. Timeline, sprints, risks</td><td>Project Manager</td></tr>
+    </table>
+  </details>
+
+  <p class="tip"><strong>💡 Bonus (if you finish early)</strong>Your team has budget for only <strong>4 people</strong> for the MVP. Which 4 roles do you hire first, and which responsibilities do they temporarily absorb? Defend your choice — this is a real startup dilemma.</p>
+</div>
+
+<div class="card">
+  <h2>✅ What you just practised</h2>
+  <p>Mapping work to roles — you now know what jobs exist in AI teams (useful for hiring <em>and</em> for your own career plans). Next: what does frontier AI actually cost?</p>
+  <a class="btn" href="day3-lab-part4.html">Continue to Part 4: The Price of Intelligence →</a>
+</div>
+
+</div>
+
+<footer>
+  Software Engineering for Gen AI · Day 3 · Lab Part 3 ·
+  <a href="https://github.com/drbahja/Software-Engineering-for-Gen-AI">Course repository</a>
+</footer>
+
+</body>
+</html>

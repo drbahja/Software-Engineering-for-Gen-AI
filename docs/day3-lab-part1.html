@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 · Lab Part 1 — Is This AI Project Feasible?</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  details { background: #f1f5f9; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--primary-dark); }
+  details[open] summary { margin-bottom: 10px; }
+  .worksheet td { height: 2.2em; }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Course Home</a>
+  <a href="day3-lab-part2.html">Part 2 →</a>
+</div>
+
+<div class="hero">
+  <span class="badge">Day 3 · Lab · Part 1 · ~45 min</span>
+  <h1>Is This AI Project Feasible? 🔍</h1>
+  <p>Before a single line of code: learn to judge whether an AI project can succeed, and to define a realistic first version (MVP).</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <h2>Step 1 — Understand the 4 feasibility pillars (10 min)</h2>
+  <p>Companies lose millions starting AI projects that were never feasible. Professionals check <strong>four pillars</strong> before committing. For each pillar, ask yourself the guiding questions:</p>
+  <table>
+    <tr><th>Pillar</th><th>Guiding questions</th></tr>
+    <tr><td><strong>1. Technical feasibility</strong></td><td>Do the tools/models to solve this exist? Does the team have (or can they get) the technology? Is the problem actually solvable with today's AI?</td></tr>
+    <tr><td><strong>2. Organizational readiness</strong></td><td>Are there enough skilled people? Does leadership support it? Who will maintain it after launch?</td></tr>
+    <tr><td><strong>3. Data availability &amp; quality</strong></td><td>Does the data exist? Is it labeled? Clean? Accessible (legally and technically)? Enough of it?</td></tr>
+    <tr><td><strong>4. Cost &amp; resource constraints</strong></td><td>Is the budget realistic for the timeline? Can existing tools be reused instead of building from scratch?</td></tr>
+  </table>
+
+  <h3>Worked mini-example: campus food delivery</h3>
+  <p>A university wants AI to predict food-delivery times on campus. Quick pillar check: <em>Technical?</em> Yes — delivery-time prediction is a solved problem (regression). <em>Organizational?</em> Partially — one part-time IT person, so keep it simple. <em>Data?</em> Yes — 2 years of order logs with timestamps. <em>Cost?</em> Yes — a simple model on existing servers costs almost nothing. <strong>Verdict: feasible, if scoped small.</strong> Notice the verdict is per-pillar, with reasons — that is exactly what you'll produce below.</p>
+</div>
+
+<div class="card">
+  <h2>Step 2 — Read the real case (5 min)</h2>
+  <p><strong>Background — UnitedHealth Group.</strong> One of the largest health insurers in North America, processing over <strong>10 million claims yearly</strong>, with rising concerns about fraud, especially in <strong>dental and outpatient claims</strong>. Leadership wants an AI model to automatically <strong>flag potentially fraudulent claims for human review</strong> — reducing unnecessary payouts and speeding up processing.</p>
+  <p>Key facts (highlight these!):</p>
+  <ul>
+    <li>Data science team is <strong>small</strong>: 2 data analysts + 1 software engineer</li>
+    <li>Budget for <strong>one external AI consultant</strong> during the MVP phase</li>
+    <li>Claims data already in a cloud database (<strong>BigQuery</strong>); company uses Google Cloud tools (<strong>AutoML, Vertex AI</strong>)</li>
+    <li>Historical data has <strong>structured fields</strong>: procedure type, date of service, claimed amount, provider ID, region</li>
+    <li>Target: <strong>prototype in 6 months</strong>, starting with the most frequent, least complex claims</li>
+  </ul>
+  <p class="tip"><strong>💡 How to read a case like an engineer</strong>Every sentence in a case description is a clue. "Small team" → organizational constraint. "BigQuery + AutoML" → technical head start. "Structured fields" → easier modeling. "6 months" → scope must be narrow.</p>
+</div>
+
+<!-- EXERCISE -->
+<div class="step" style="border: 2px solid var(--accent);">
+  <h2>🏆 Your tasks (25 min, in pairs)</h2>
+
+  <h3>Task A — Feasibility assessment</h3>
+  <p>For each pillar, answer: <strong>Feasible? (Yes / Partially / No)</strong> and give <strong>one sentence of reasoning based on facts from the case</strong>. Use this table:</p>
+  <table class="worksheet">
+    <tr><th>Pillar</th><th>Feasible?</th><th>Your reasoning (quote a fact!)</th></tr>
+    <tr><td>Technical feasibility</td><td></td><td></td></tr>
+    <tr><td>Organizational readiness</td><td></td><td></td></tr>
+    <tr><td>Data availability &amp; quality</td><td></td><td></td></tr>
+    <tr><td>Cost &amp; resource constraints</td><td></td><td></td></tr>
+  </table>
+
+  <h3>Task B — Define the MVP scope</h3>
+  <p>An MVP (Minimum Viable Product) does the <em>smallest useful thing well</em>. Decide what version 1 should include and what must wait. Think about these 5 dimensions — one row each:</p>
+  <ul>
+    <li><strong>Claim types</strong> — which claims first? (hint: the case tells you)</li>
+    <li><strong>Data types</strong> — structured fields only, or scanned documents too?</li>
+    <li><strong>Autonomy</strong> — does the AI decide, or does a human decide?</li>
+    <li><strong>Tooling</strong> — build a custom model, or use AutoML?</li>
+    <li><strong>Frequency</strong> — real-time scoring, or weekly batches?</li>
+  </ul>
+  <table class="worksheet">
+    <tr><th>In scope (Phase 1 — MVP)</th><th>Out of scope (future phases)</th></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+  </table>
+
+  <details>
+    <summary>🔓 Reveal the model answers (only after you finish!)</summary>
+    <h3>Task A</h3>
+    <table>
+      <tr><th>Pillar</th><th>Feasible?</th><th>Reasoning</th></tr>
+      <tr><td>Technical</td><td>Yes</td><td>Google Cloud, BigQuery and AutoML are sufficient for a fraud-detection prototype on structured data.</td></tr>
+      <tr><td>Organizational</td><td>Partially</td><td>Internal team is small, but the external consultant makes an MVP possible; full deployment needs more hiring.</td></tr>
+      <tr><td>Data</td><td>Yes</td><td>Labeled, structured historical data already in a modern cloud system.</td></tr>
+      <tr><td>Cost</td><td>Yes</td><td>6 months using existing tools + one consultant is realistic for Phase 1.</td></tr>
+    </table>
+    <h3>Task B</h3>
+    <table>
+      <tr><th>In scope (MVP)</th><th>Out of scope (future)</th></tr>
+      <tr><td>Dental and outpatient claims</td><td>Complex claims such as surgical</td></tr>
+      <tr><td>Structured data only (procedure code, cost…)</td><td>Scanned documents, unstructured notes</td></tr>
+      <tr><td>Model flags claims for manual review</td><td>Autonomous approvals/rejections</td></tr>
+      <tr><td>AutoML for model development</td><td>Custom model experimentation</td></tr>
+      <tr><td>Weekly batch predictions</td><td>Real-time scoring / streaming</td></tr>
+    </table>
+  </details>
+</div>
+
+<div class="card">
+  <h2>✅ What you just practised</h2>
+  <p>Feasibility thinking and MVP scoping — the two decisions that kill or save AI projects before any model is trained. Next: how to define <em>success</em> in numbers.</p>
+  <a class="btn" href="day3-lab-part2.html">Continue to Part 2: SMART Success Metrics →</a>
+</div>
+
+</div>
+
+<footer>
+  Software Engineering for Gen AI · Day 3 · Lab Part 1 ·
+  <a href="https://github.com/drbahja/Software-Engineering-for-Gen-AI">Course repository</a>
+</footer>
+
+</body>
+</html>

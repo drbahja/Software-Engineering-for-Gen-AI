@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 · Lab Part 2 — SMART Success Metrics</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  details { background: #f1f5f9; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--primary-dark); }
+  details[open] summary { margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Course Home</a>
+  <a href="day3-lab-part1.html">← Part 1</a>
+  <a href="day3-lab-part3.html">Part 3 →</a>
+</div>
+
+<div class="hero">
+  <span class="badge">Day 3 · Lab · Part 2 · ~45 min</span>
+  <h1>Define Success — SMART Metrics 🎯</h1>
+  <p>"The AI should work well" is not a goal. Learn to define success in numbers, at three levels: model, system, and business.</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <h2>Step 1 — What makes a goal SMART? (10 min)</h2>
+  <p>A SMART goal is <strong>S</strong>pecific, <strong>M</strong>easurable, <strong>A</strong>chievable, <strong>R</strong>elevant, and <strong>T</strong>ime-bound. Compare:</p>
+  <table>
+    <tr><th>❌ Not SMART</th><th>✅ SMART</th><th>What changed?</th></tr>
+    <tr><td>"The model should be accurate"</td><td>"Achieve at least 85% accuracy on the test set within 3 months"</td><td>Number + deadline</td></tr>
+    <tr><td>"The system should be fast"</td><td>"Return results in under 2 seconds for 95% of requests by launch"</td><td>Threshold + coverage + deadline</td></tr>
+    <tr><td>"It should help the business"</td><td>"Reduce missed payments by 12% within 3 months of go-live"</td><td>Business number + timeframe</td></tr>
+  </table>
+
+  <h2 style="margin-top:22px;">Step 2 — The three levels of AI metrics (10 min)</h2>
+  <table>
+    <tr><th>Level</th><th>Measures…</th><th>Typical metrics</th></tr>
+    <tr><td><strong>Model</strong></td><td>Is the AI's prediction good?</td><td>Accuracy, precision, recall, F1, false positive/negative rate</td></tr>
+    <tr><td><strong>System</strong></td><td>Does the software around the model perform?</td><td>Response time, uptime, throughput/scalability</td></tr>
+    <tr><td><strong>Business</strong></td><td>Does it create real value?</td><td>Cost savings, revenue, customer satisfaction, task reduction %</td></tr>
+  </table>
+
+  <h3>Worked example: food-delivery ETA predictor</h3>
+  <ul>
+    <li><strong>Model:</strong> "Predict delivery time within ±5 minutes for 80% of orders by end of month 2."</li>
+    <li><strong>System:</strong> "Show the ETA in the app in under 1 second for 99% of orders at launch."</li>
+    <li><strong>Business:</strong> "Cut 'where is my order?' support tickets by 30% within 3 months."</li>
+  </ul>
+  <p class="tip"><strong>💡 Notice the chain</strong>A good model (±5 min) enables a good system (instant ETA), which delivers business value (fewer complaints). If you can't draw this chain, the metric probably doesn't matter.</p>
+</div>
+
+<!-- EXERCISE -->
+<div class="step" style="border: 2px solid var(--accent);">
+  <h2>🏆 Exercise — the loan-risk early-warning system (25 min, in pairs)</h2>
+  <p><strong>Scenario:</strong> a bank wants AI to predict which customers are likely to <strong>miss their monthly loan payment</strong>, so customer-service teams can proactively reach out and offer help <em>before</em> the payment is missed.</p>
+  <p><strong>Your task:</strong> define how success will be measured. Write <strong>3 model metrics, 3 system metrics, and 3 business metrics — each as a full SMART goal sentence.</strong></p>
+
+  <p>Follow this recipe for every metric:</p>
+  <ol>
+    <li>Pick the metric (e.g., "false positive rate")</li>
+    <li>Add a number (target or threshold) — make it <em>achievable</em>, not fantasy</li>
+    <li>Add a timeframe ("within 3 months", "during the pilot", "by launch")</li>
+    <li>Sanity-check: is it <em>relevant</em> to the bank's goal of preventing missed payments?</li>
+  </ol>
+
+  <p><strong>Hints per level:</strong></p>
+  <ul>
+    <li><em>Model:</em> think about correct predictions, false alarms (annoying calls to safe customers!), and missed risky customers (the expensive mistake).</li>
+    <li><em>System:</em> the service team opens a dashboard every morning — what must be true about speed, availability, and capacity?</li>
+    <li><em>Business:</em> what would the bank's CFO want to see change? Missed payments, outreach volume, collection costs…</li>
+  </ul>
+
+  <p><strong>Self-check before revealing:</strong> read each goal aloud and ask: Specific? Measurable? Achievable? Relevant? Time-bound? All five, or rewrite it.</p>
+
+  <details>
+    <summary>🔓 Reveal the model answer (only after you finish!)</summary>
+    <table>
+      <tr><th>Level</th><th>Metric</th><th>SMART goal</th></tr>
+      <tr><td rowspan="3">Model</td><td>Correct prediction rate</td><td>Achieve at least 85% accuracy in predicting missed payments within 3 months.</td></tr>
+      <tr><td>False positive rate</td><td>Keep incorrect warnings under 10% during the pilot phase.</td></tr>
+      <tr><td>False negative rate</td><td>Identify at least 90% of truly risky customers by the end of Q2.</td></tr>
+      <tr><td rowspan="3">System</td><td>Response time</td><td>Return results in under 2 seconds for 95% of users by launch.</td></tr>
+      <tr><td>Uptime</td><td>Maintain 99.5% uptime during business hours in the first 60 days.</td></tr>
+      <tr><td>Scalability</td><td>Support 1,000 predictions/hour without slowdown by end of month 1.</td></tr>
+      <tr><td rowspan="3">Business</td><td>Missed-payment reduction</td><td>Reduce missed loan payments by 12% within 3 months of system use.</td></tr>
+      <tr><td>Proactive outreach</td><td>Increase early outreach calls by 25% in the first month after deployment.</td></tr>
+      <tr><td>Cost savings</td><td>Achieve a 10% reduction in payment-collection costs within 6 months.</td></tr>
+    </table>
+    <p>Your numbers don't have to match these — what matters is that every goal has a metric, a number, and a deadline, and sits at the right level.</p>
+  </details>
+
+  <p class="tip"><strong>💡 Discussion</strong>Which is worse here: a false positive (calling a customer who was fine) or a false negative (missing a customer who defaults)? How should that change your model targets? There's no single right answer — argue it!</p>
+</div>
+
+<div class="card">
+  <h2>✅ What you just practised</h2>
+  <p>Turning vague hopes into measurable commitments — the language executives, engineers, and clients all understand. Next: who actually does all this work?</p>
+  <a class="btn" href="day3-lab-part3.html">Continue to Part 3: Who Does What? →</a>
+</div>
+
+</div>
+
+<footer>
+  Software Engineering for Gen AI · Day 3 · Lab Part 2 ·
+  <a href="https://github.com/drbahja/Software-Engineering-for-Gen-AI">Course repository</a>
+</footer>
+
+</body>
+</html>
