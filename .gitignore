@@ -11,3 +11,6 @@ venv/
 .idea/
 .vscode/
 .DS_Store
+
+# PowerPoint lock files
+~$*
