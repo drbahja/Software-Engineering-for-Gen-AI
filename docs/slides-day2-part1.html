@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 1 Slides — Software Engineering for Gen AI</title>
+<title>Day 2 · Part 1 Slides — SE for Gen AI (continued)</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
@@ -25,34 +25,35 @@
 
 <div class="bar">
   <a href="index.html">← Course Home</a>
-  <strong>Day 1 — Software Engineering for Generative AI Applications (slides 1–20)</strong>
-  <a href="slides-day2-part1.html">Day 2 slides →</a>
-  <a href="slides/day1/Day1-Slides.pdf" download>⬇ PDF</a>
+  <a href="slides-day1.html">← Day 1 slides</a>
+  <a href="slides-day2-part2.html">Part 2 slides →</a>
+  <strong>Day 2 · Part 1 — Software Engineering for Gen AI (slides 21–59)</strong>
+  <a href="slides/day2p1/Day2-Part1-Slides.pdf" download>⬇ PDF</a>
   <button class="btn" onclick="goFull()">⛶ Fullscreen</button>
-  <span class="counter"><span id="cur">1</span> / <span id="total">20</span></span>
+  <span class="counter"><span id="cur">1</span> / <span id="total">39</span></span>
 </div>
 
 <div class="stage">
-  <img id="slide" src="slides/day1/s-01.jpg" alt="Slide">
+  <img id="slide" src="slides/day2p1/s-01.jpg" alt="Slide">
   <div class="nav prev" onclick="step(-1)" title="Previous (←)"></div>
   <div class="nav next" onclick="step(1)" title="Next (→ or space)"></div>
   <div class="hint" id="hint">← → arrow keys · click left/right side · F for fullscreen</div>
 </div>
 
 <script>
-  const TOTAL = 20;
+  const TOTAL = 39;
   let i = 1;
   const img = document.getElementById("slide");
   const cur = document.getElementById("cur");
   document.getElementById("total").textContent = TOTAL;
 
-  const src = n => "slides/day1/s-" + String(n).padStart(2, "0") + ".jpg";
+  const src = n => "slides/day2p1/s-" + String(n).padStart(2, "0") + ".jpg";
   function show(n) {
     i = Math.min(TOTAL, Math.max(1, n));
     img.src = src(i);
     cur.textContent = i;
-    if (i < TOTAL) (new Image()).src = src(i + 1);   // preload next
-    if (i > 1) (new Image()).src = src(i - 1);       // preload prev
+    if (i < TOTAL) (new Image()).src = src(i + 1);
+    if (i > 1) (new Image()).src = src(i - 1);
     location.hash = i;
   }
   const step = d => show(i + d);
@@ -65,7 +66,6 @@
     if (e.key.toLowerCase() === "f") goFull();
   });
 
-  // touch swipe
   let x0 = null;
   document.addEventListener("touchstart", e => x0 = e.touches[0].clientX);
   document.addEventListener("touchend", e => {

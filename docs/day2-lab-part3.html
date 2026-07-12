@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 1 · Lab Part 3 — Spot the Challenges</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  details { background: #f1f5f9; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--primary-dark); }
+  details[open] summary { margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Course Home</a>
+  <a href="day2-lab-part2.html">← Part 2</a>
+  <a href="day2-lab-part4.html">Part 4 →</a>
+</div>
+
+<div class="hero">
+  <span class="badge">Day 2 · Lab · Part 3 · ~30 min</span>
+  <h1>Spot the Challenges 🕵️</h1>
+  <p>Real AI projects fail in predictable ways. Learn to see the traps before you fall into them.</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <h2>Scenario: real-time fraud detection</h2>
+  <p>You are a data scientist at a fintech company. Your team must build an AI model that detects <strong>fraudulent credit-card transactions in real time</strong>, so suspicious charges can be blocked before they cause damage.</p>
+  <p>Sounds straightforward? Every single lifecycle step hides a trap. Your job is to find them.</p>
+</div>
+
+<!-- EXERCISE -->
+<div class="step" style="border: 2px solid var(--accent);">
+  <h2>🏆 Exercise — one trap per step</h2>
+  <p>In pairs, for <strong>each of the 7 lifecycle steps</strong>, write down:</p>
+  <ol>
+    <li>a <strong>key challenge</strong> you would face at that step,</li>
+    <li>its <strong>impact</strong> on fraud detection,</li>
+    <li>a <strong>practical solution</strong>.</li>
+  </ol>
+  <p>Think about: What makes fraud data special? How often do fraudsters change tactics? What happens if the model is slow? Is "accuracy" a good metric when 99.9% of transactions are legitimate?</p>
+
+  <details>
+    <summary>🔓 Reveal the model answer (only after you finish!)</summary>
+    <table>
+      <tr><th>Step</th><th>Challenge</th><th>Impact</th><th>Solution</th></tr>
+      <tr><td>1. Problem Scoping</td><td>Fraud team and data team disagree on what counts as "fraud"</td><td>Wasted labeling effort, inconsistent outcomes</td><td>Define fraud types with domain experts; align on KPIs (% fraud blocked)</td></tr>
+      <tr><td>2. Data Acquisition</td><td>Privacy laws (GDPR) limit access to real fraud examples</td><td>Incomplete training data → unreliable model</td><td>Anonymised data; synthetic data for rare fraud types</td></tr>
+      <tr><td>3. Data Exploration</td><td>Extreme imbalance: 99.9% legit vs 0.1% fraud</td><td>Model classifies everything as "normal"</td><td>Resampling, anomaly detection, cost-sensitive learning</td></tr>
+      <tr><td>4. Modeling</td><td>Fraud patterns change quickly</td><td>Static models become obsolete fast</td><td>Online learning or frequent retraining</td></tr>
+      <tr><td>5. Evaluation</td><td>Using accuracy instead of precision/recall</td><td>Too many false alarms, or missed fraud</td><td>Recall to catch fraud + precision to avoid false alarms</td></tr>
+      <tr><td>6. Deployment</td><td>Complex models are slow</td><td>Delayed alerts, unhappy customers</td><td>Low-latency, lightweight models for real-time use</td></tr>
+      <tr><td>7. Monitoring</td><td>Fraud tactics keep evolving</td><td>Model loses effectiveness over time</td><td>Monitor, retrain weekly, human-in-the-loop review</td></tr>
+    </table>
+  </details>
+
+  <p class="tip"><strong>💡 Connect it back</strong>Look at your diabetes plan from Part 1: which of these traps apply there too? (Hint: imbalance, privacy, and drift almost always do.)</p>
+</div>
+
+<div class="card">
+  <h2>✅ What you just practised</h2>
+  <p>Challenge-spotting is exactly what you'll do as an AI engineer in design reviews. On Day 2 we turn this into a formal skill: requirements and risk analysis with stakeholders.</p>
+  <p>☕ <strong>Take a break — then the main event:</strong></p>
+  <a class="btn" href="day2-lab-part4.html">Continue to Part 4: Build Your First AI Agent →</a>
+</div>
+
+</div>
+
+<footer>
+  Software Engineering for Gen AI · Day 2 · Lab Part 3 ·
+  <a href="https://github.com/drbahja/Software-Engineering-for-Gen-AI">Course repository</a>
+</footer>
+
+</body>
+</html>
