@@ -47,7 +47,7 @@
 <body>
 
 <h1>Instructor Timer · Xi'an Training</h1>
-<div class="clock"><span id="clock">--:--:--</span><span class="sim" id="simBadge" style="display:none">SIMULATED</span></div>
+<div class="clock"><span id="clock">--:--:--</span> <span style="font-size:1rem;color:#64748b;">Xi’an time</span><span class="sim" id="simBadge" style="display:none">SIMULATED</span></div>
 
 <div class="now-card">
   <div class="period-name" id="periodName">Loading…</div>
@@ -119,11 +119,15 @@ let anchorReal = Date.now(), anchorSim = null;
 let muted = false, soundOn = false;
 let lastFired = -1;
 
+// Always use Xi'an time (Asia/Shanghai), even if the laptop is on UK time
+const XIAN_TZ = "Asia/Shanghai";
+const tzFmt = new Intl.DateTimeFormat("en-GB", { timeZone: XIAN_TZ, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
 function nowSec() {
   const real = Date.now();
   if (simOffset === null) {
-    const d = new Date(real);
-    return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1000;
+    const p = tzFmt.formatToParts(new Date(real));
+    const get = t => Number(p.find(x => x.type === t).value);
+    return (get("hour") % 24) * 3600 + get("minute") * 60 + get("second") + (real % 1000) / 1000;
   }
   const elapsed = (real - anchorReal) / 1000 * speed;
   return anchorSim + elapsed;
