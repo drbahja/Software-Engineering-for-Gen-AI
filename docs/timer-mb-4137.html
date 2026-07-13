@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instructor Timer — Private</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px; }
+  h1 { font-size: 1.1rem; color: #64748b; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+  .clock { font-size: 3.2rem; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 6px; }
+  .clock .sim { color: #f59e0b; font-size: 1rem; vertical-align: middle; margin-left: 8px; }
+
+  .now-card { margin-top: 18px; width: min(680px, 100%); background: #1e293b; border-radius: 18px; padding: 28px 32px; text-align: center; }
+  .period-name { font-size: 1.6rem; font-weight: 700; }
+  .period-name.break { color: #4ade80; }
+  .countdown { font-size: 4.6rem; font-weight: 800; font-variant-numeric: tabular-nums; margin: 6px 0; }
+  .countdown.warn { color: #f59e0b; }
+  .countdown.crit { color: #ef4444; }
+  .subtitle { color: #94a3b8; font-size: 1.05rem; }
+  .bar { height: 10px; background: #334155; border-radius: 999px; margin-top: 18px; overflow: hidden; }
+  .bar > div { height: 100%; background: #38bdf8; width: 0%; transition: width 1s linear; border-radius: 999px; }
+
+  .timeline { margin-top: 20px; width: min(680px, 100%); display: flex; flex-direction: column; gap: 8px; }
+  .slot { display: flex; align-items: center; gap: 12px; background: #1e293b; border-radius: 12px; padding: 10px 18px; opacity: 0.75; }
+  .slot.current { outline: 2px solid #38bdf8; opacity: 1; }
+  .slot.done { opacity: 0.4; text-decoration: line-through; }
+  .slot .time { font-variant-numeric: tabular-nums; color: #94a3b8; width: 130px; }
+  .slot .name { font-weight: 600; }
+  .slot.breakslot .name { color: #4ade80; }
+
+  .controls { margin-top: 22px; width: min(680px, 100%); display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  button { background: #334155; color: #e2e8f0; border: none; border-radius: 10px; padding: 10px 18px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+  button:hover { background: #475569; }
+  button.primary { background: #0284c7; }
+  button.primary:hover { background: #0369a1; }
+  button.danger { background: #b91c1c; }
+
+  .test-panel { margin-top: 26px; width: min(680px, 100%); background: #172033; border: 1px dashed #475569; border-radius: 14px; padding: 18px; }
+  .test-panel h2 { font-size: 0.85rem; color: #f59e0b; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .test-panel .row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .test-panel button { font-size: 0.85rem; padding: 8px 12px; background: #3b2f1a; color: #fbbf24; }
+  .test-panel button:hover { background: #4d3d20; }
+  .muted-note { color: #64748b; font-size: 0.85rem; margin-top: 10px; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>Instructor Timer · Xi'an Training</h1>
+<div class="clock"><span id="clock">--:--:--</span><span class="sim" id="simBadge" style="display:none">SIMULATED</span></div>
+
+<div class="now-card">
+  <div class="period-name" id="periodName">Loading…</div>
+  <div class="countdown" id="countdown">--:--</div>
+  <div class="subtitle" id="subtitle"></div>
+  <div class="bar"><div id="progress"></div></div>
+</div>
+
+<div class="timeline" id="timeline"></div>
+
+<div class="controls">
+  <button class="primary" id="soundBtn" onclick="enableSound()">🔊 Enable sound &amp; voice</button>
+  <button onclick="speakStatus()">🗣 Announce status now</button>
+  <button id="muteBtn" onclick="toggleMute()">🔇 Mute</button>
+</div>
+
+<div class="test-panel">
+  <h2>🧪 Test mode — no waiting needed</h2>
+  <div class="row">
+    <span style="color:#94a3b8;font-size:.85rem;align-self:center">Jump to:</span>
+    <button onclick="simTo('14:29:50')">Start of day</button>
+    <button onclick="simTo('15:14:50')">5-min warning P1</button>
+    <button onclick="simTo('15:19:50')">P1 → P2 change</button>
+    <button onclick="simTo('16:09:50')">Break start 🎉</button>
+    <button onclick="simTo('16:18:50')">Break ending</button>
+    <button onclick="simTo('17:59:50')">End of day</button>
+  </div>
+  <div class="row">
+    <span style="color:#94a3b8;font-size:.85rem;align-self:center">Speed:</span>
+    <button onclick="setSpeed(1)">×1</button>
+    <button onclick="setSpeed(10)">×10</button>
+    <button onclick="setSpeed(60)">×60 (1 min = 1 s)</button>
+    <button class="danger" onclick="realTime()" style="background:#14532d;color:#86efac">⏱ Back to REAL time</button>
+  </div>
+  <div class="muted-note">Jumps place you 10 seconds before each event so you can hear the announcement.</div>
+</div>
+
+<script>
+// ---------------- schedule ----------------
+const SCHEDULE = [
+  { name: "Period 1", start: "14:30", end: "15:20", type: "teach" },
+  { name: "Period 2", start: "15:20", end: "16:10", type: "teach" },
+  { name: "Mid break — REST", start: "16:10", end: "16:20", type: "break" },
+  { name: "Period 3", start: "16:20", end: "17:10", type: "teach" },
+  { name: "Period 4", start: "17:10", end: "18:00", type: "teach" },
+];
+
+// announcements: [triggerSecondsOfDay, spoken text, chime?]
+function hms(t) { const [h, m] = t.split(":").map(Number); return h * 3600 + m * 60; }
+const EVENTS = [];
+SCHEDULE.forEach((s, i) => {
+  const st = hms(s.start), en = hms(s.end);
+  if (s.type === "teach") {
+    EVENTS.push([st, `${s.name} has started. Finishing at ${s.end}.`]);
+    EVENTS.push([en - 300, `5 minutes left in ${s.name}. Time to wrap up this section.`]);
+    EVENTS.push([en - 60, `One minute left in ${s.name}.`]);
+  } else {
+    EVENTS.push([st, `Break time! ${s.name.includes("REST") ? "" : ""}You have 10 minutes. Step away from the podium, drink some water, and rest your voice.`]);
+    EVENTS.push([en - 120, `Break ends in 2 minutes. Students are coming back.`]);
+  }
+});
+EVENTS.push([hms("18:00"), "That's the end of today's training. Well done — session complete!"]);
+EVENTS.sort((a, b) => a[0] - b[0]);
+
+// ---------------- time engine (real + simulated) ----------------
+let simOffset = null;   // seconds difference vs real clock, null = real time
+let speed = 1;
+let anchorReal = Date.now(), anchorSim = null;
+let muted = false, soundOn = false;
+let lastFired = -1;
+
+function nowSec() {
+  const real = Date.now();
+  if (simOffset === null) {
+    const d = new Date(real);
+    return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1000;
+  }
+  const elapsed = (real - anchorReal) / 1000 * speed;
+  return anchorSim + elapsed;
+}
+function simTo(t) {
+  const [h, m, s] = t.split(":").map(Number);
+  anchorSim = h * 3600 + m * 60 + (s || 0);
+  anchorReal = Date.now();
+  simOffset = 1;
+  lastFired = anchorSim - 0.5; // only fire events after the jump point
+  document.getElementById("simBadge").style.display = "inline";
+}
+function setSpeed(x) {
+  if (simOffset === null) simTo(fmtHMS(nowSec()));
+  anchorSim = nowSec(); anchorReal = Date.now(); speed = x;
+}
+function realTime() {
+  simOffset = null; speed = 1; lastFired = nowSec() - 0.5;
+  document.getElementById("simBadge").style.display = "none";
+}
+
+// ---------------- voice & chime ----------------
+function chime(cb) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [523.25, 659.25, 783.99];
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.value = f; o.type = "sine";
+      o.connect(g); g.connect(ctx.destination);
+      const t = ctx.currentTime + i * 0.18;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.4, t + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+      o.start(t); o.stop(t + 0.55);
+    });
+    if (cb) setTimeout(cb, 700);
+  } catch (e) { if (cb) cb(); }
+}
+function speak(text) {
+  if (muted || !soundOn) return;
+  chime(() => {
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.95; u.pitch = 1.0; u.volume = 1.0;
+    const v = speechSynthesis.getVoices().filter(v => v.lang.startsWith("en"));
+    if (v.length) u.voice = v.find(x => x.name.includes("Samantha")) || v[0];
+    speechSynthesis.speak(u);
+  });
+}
+function enableSound() {
+  soundOn = true;
+  speechSynthesis.getVoices(); // warm up
+  speak("Sound is on. I will keep track of the schedule for you.");
+  document.getElementById("soundBtn").textContent = "🔊 Sound is ON";
+}
+function toggleMute() {
+  muted = !muted;
+  document.getElementById("muteBtn").textContent = muted ? "🔊 Unmute" : "🔇 Mute";
+}
+
+// ---------------- status helpers ----------------
+function fmtHMS(sec) {
+  sec = Math.max(0, Math.floor(sec));
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = Math.floor(sec % 60);
+  return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+function fmtMS(sec) {
+  sec = Math.max(0, Math.ceil(sec));
+  const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+  return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+function currentSlot(t) {
+  for (const s of SCHEDULE) if (t >= hms(s.start) && t < hms(s.end)) return s;
+  return null;
+}
+function speakStatus() {
+  const t = nowSec(), slot = currentSlot(t);
+  if (!slot) { speak(t < hms("14:30") ? `The lecture starts at 14:30.` : `Today's training is finished.`); return; }
+  const left = Math.round((hms(slot.end) - t) / 60);
+  speak(slot.type === "break" ? `You are on break. ${left} minutes of rest left.` : `You are in ${slot.name}. ${left} minutes remaining.`);
+}
+
+// ---------------- render loop ----------------
+const tl = document.getElementById("timeline");
+SCHEDULE.forEach((s, i) => {
+  const div = document.createElement("div");
+  div.className = "slot" + (s.type === "break" ? " breakslot" : "");
+  div.id = "slot" + i;
+  div.innerHTML = `<span class="time">${s.start} – ${s.end}</span><span class="name">${s.type === "break" ? "☕ " : "📖 "}${s.name}</span>`;
+  tl.appendChild(div);
+});
+
+function tick() {
+  const t = nowSec();
+  document.getElementById("clock").textContent = fmtHMS(t);
+
+  // fire events
+  for (const [when, text] of EVENTS) {
+    if (when > lastFired && when <= t) speak(text);
+  }
+  lastFired = Math.max(lastFired, t);
+
+  // status card
+  const slot = currentSlot(t);
+  const nameEl = document.getElementById("periodName");
+  const cdEl = document.getElementById("countdown");
+  const subEl = document.getElementById("subtitle");
+  const bar = document.getElementById("progress");
+
+  if (!slot) {
+    if (t < hms("14:30")) {
+      nameEl.textContent = "Before the lecture";
+      nameEl.className = "period-name";
+      cdEl.textContent = fmtMS(hms("14:30") - t);
+      subEl.textContent = "until Period 1 starts at 14:30";
+      cdEl.className = "countdown"; bar.style.width = "0%";
+    } else {
+      nameEl.textContent = "Training finished 🎉";
+      nameEl.className = "period-name";
+      cdEl.textContent = "00:00";
+      subEl.textContent = "See you tomorrow";
+      bar.style.width = "100%";
+    }
+  } else {
+    const st = hms(slot.start), en = hms(slot.end), left = en - t;
+    nameEl.textContent = (slot.type === "break" ? "☕ " : "") + slot.name;
+    nameEl.className = "period-name" + (slot.type === "break" ? " break" : "");
+    cdEl.textContent = fmtMS(left);
+    cdEl.className = "countdown" + (left <= 60 ? " crit" : left <= 300 ? " warn" : "");
+    subEl.textContent = `ends at ${slot.end}`;
+    bar.style.width = `${((t - st) / (en - st) * 100).toFixed(1)}%`;
+  }
+
+  // timeline states
+  SCHEDULE.forEach((s, i) => {
+    const el = document.getElementById("slot" + i);
+    el.classList.toggle("current", slot === s);
+    el.classList.toggle("done", t >= hms(s.end));
+  });
+}
+setInterval(tick, 250);
+tick();
+
+// keep screen awake if supported
+if ("wakeLock" in navigator) {
+  const grab = () => navigator.wakeLock.request("screen").catch(() => {});
+  grab(); document.addEventListener("visibilitychange", () => { if (!document.hidden) grab(); });
+}
+</script>
+
+</body>
+</html>
