@@ -8,7 +8,9 @@ Training materials for the 4-day course on software engineering for generative A
 
 ```
 XIAN-Training/
-└── Day-One/          ← Your first AI agent (DeepSeek + LangChain)
+└── Day-One/
+    ├── agent-deepseek/   ← Your first AI agent (DeepSeek + LangChain)
+    ├── agent-local-slm/  ← Same agent on a local SLM (Ollama)
     ├── first_agent.py       CLI chat agent
     ├── streamlit_app.py     Web version
     ├── README.md            Step-by-step setup & run guide
@@ -19,7 +21,7 @@ XIAN-Training/
 
 ```bash
 git clone https://github.com/drbahja/Software-Engineering-for-Gen-AI.git
-cd Software-Engineering-for-Gen-AI/XIAN-Training/Day-One
+cd Software-Engineering-for-Gen-AI/XIAN-Training/Day-One/agent-deepseek
 ```
 
 Then follow the instructions in [`XIAN-Training/Day-One/README.md`](XIAN-Training/Day-One/README.md).

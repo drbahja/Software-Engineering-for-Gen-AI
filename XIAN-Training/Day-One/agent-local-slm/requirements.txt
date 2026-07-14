@@ -1,0 +1,5 @@
+# Local SLM edition — the model runs in Ollama, so no provider SDK needed
+langchain-openai>=0.3
+langchain-core>=0.3
+python-dotenv>=1.0
+streamlit>=1.40

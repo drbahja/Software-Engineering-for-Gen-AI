@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2 · Lab Part 5 — Run Your Agent on a Local SLM</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Course Home</a>
+  <a href="day2-lab-part4.html">← Part 4</a>
+</div>
+
+<div class="hero">
+  <span class="badge">Day 2 · Lab · Part 5 · ~1 hour</span>
+  <h1>Your Agent, 100% on Your Laptop 💻</h1>
+  <p>No cloud, no API key, no internet: run the same first agent on a Small Language Model that lives on your own machine.</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <h2>What is an SLM — and why run one locally?</h2>
+  <p>A <strong>Small Language Model (SLM)</strong> is a compact version of models like DeepSeek — small enough to run on a normal laptop. The trade-off: less knowledge and weaker reasoning, but you gain four huge advantages:</p>
+
+  <ul>
+    <li><strong>Private</strong> — your questions never leave your machine</li>
+    <li><strong>Free</strong> — no API key, no cost per token</li>
+    <li><strong>Offline</strong> — works with no internet at all</li>
+    <li><strong>Yours</strong> — nobody can turn it off or change it</li>
+  </ul>
+  <p>We'll use <strong>Ollama</strong> — the simplest tool in existence for running models locally. One install, one command, done.</p>
+</div>
+
+<!-- STEP 1 -->
+<div class="step">
+  <h2><span class="step-number">1</span>Install Ollama</h2>
+  <ol>
+    <li>Go to <a href="https://ollama.com">ollama.com</a> and click <strong>Download</strong>.</li>
+    <li><strong>Windows:</strong> run the downloaded <code>OllamaSetup.exe</code> → click <em>Install</em>. That's the whole installer.</li>
+    <li><strong>macOS:</strong> open the downloaded zip → drag <strong>Ollama</strong> to <strong>Applications</strong> → open it once (a small llama icon appears in the menu bar).</li>
+    <li>Verify: open a terminal and type <code>ollama --version</code>. A version number = success.</li>
+  </ol>
+  <p class="warn"><strong>⚠️ Slow download in class?</strong>The installer and models are large. If the classroom connection struggles, the instructor has the installer and the model file on a USB stick — raise your hand instead of waiting.</p>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <h2><span class="step-number">2</span>Pick a model that fits YOUR laptop</h2>
+  <p>Rule of thumb: the model must fit comfortably in your <strong>RAM</strong>, or your laptop will feel heavy and slow. Check your RAM (Windows: Settings → System → About · macOS:  → About This Mac), then choose:</p>
+  <table>
+    <tr><th>Your laptop</th><th>Model to pull</th><th>Size</th><th>What to expect</th></tr>
+    <tr><td>Any laptop, even old (≤8 GB RAM)</td><td><code>qwen2.5:0.5b</code></td><td>~0.4 GB</td><td>Instant answers, basic quality — great for testing</td></tr>
+    <tr><td><strong>8 GB RAM (the safe default ✅)</strong></td><td><code>qwen2.5:1.5b</code></td><td>~1 GB</td><td>Fast, surprisingly capable — our recommendation</td></tr>
+    <tr><td>16 GB RAM</td><td><code>qwen2.5:3b</code></td><td>~2 GB</td><td>Better reasoning, still smooth</td></tr>
+    <tr><td>16 GB+ with Apple Silicon / good GPU</td><td><code>qwen2.5:7b</code> or <code>deepseek-r1:7b</code></td><td>~5 GB</td><td>Genuinely good; r1 shows its reasoning steps</td></tr>
+  </table>
+  <p>Download your model (we'll use the safe default — <strong>if unsure, choose this one</strong>):</p>
+  <pre><code>ollama pull qwen2.5:1.5b</code></pre>
+  <p>Then have a quick chat with it directly in the terminal to prove it works:</p>
+  <pre><code>ollama run qwen2.5:1.5b</code></pre>
+  <p>Ask it something, then type <code>/bye</code> to exit.</p>
+  <p class="tip"><strong>💡 Why Qwen?</strong>Qwen (通义千问) is Alibaba's open model family — excellent in both English and Chinese, and among the best small models in the world. A local model that speaks your language!</p>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <h2><span class="step-number">3</span>Your local API — and why it's secure</h2>
+  <p>Here is the magic: while Ollama is running, it serves a <strong>local API</strong> that speaks the same language as OpenAI's API. Test it:</p>
+  <pre><code>curl http://localhost:11434/v1/models</code></pre>
+  <p>You should see JSON listing your model. Your laptop is now an AI server!</p>
+  <p><strong>Why is this secure?</strong> Look at the address: <code>localhost</code> (= <code>127.0.0.1</code>) means <em>"this machine only"</em>. The API is not visible to the Wi-Fi network, the classroom, or the internet — only programs running on your own laptop can reach it. That's why no API key is needed.</p>
+
+  <ul>
+    <li>✅ <code>localhost:11434</code> — private to your machine (the default; keep it)</li>
+    <li>⚠️ Never bind Ollama to <code>0.0.0.0</code> (a setting some tutorials show) — that would open your AI to the whole network. If you ever need that, add authentication in front of it.</li>
+  </ul>
+  <p class="tip"><strong>💡 Connect the dots</strong>Remember the .env lesson: cloud APIs need secret keys because they're on the public internet. A localhost API is protected by the network itself. Different threat, different defence — that's security thinking.</p>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <h2><span class="step-number">4</span>Create a NEW project (don't touch the old one!)</h2>
+  <p>Professionals never experiment inside a working project. New experiment = new folder = new venv:</p>
+  <ol>
+    <li>In your <code>genai-course</code> folder, create a new folder: <code>agent-local-slm</code>.</li>
+    <li>VS Code → <strong>File → Open Folder…</strong> → select it (open a <em>new window</em> if you want to keep the old project open too).</li>
+    <li>Terminal → New Terminal, then create the environment:</li>
+  </ol>
+  <pre><code># macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Windows
+python -m venv .venv
+.venv\Scripts\activate</code></pre>
+  <ol start="4">
+    <li>Create <code>requirements.txt</code> with exactly these lines, then install:</li>
+  </ol>
+  <pre><code>langchain-openai>=0.3
+langchain-core>=0.3
+python-dotenv>=1.0
+streamlit>=1.40</code></pre>
+  <pre><code>pip install -r requirements.txt</code></pre>
+  <p class="tip"><strong>💡 Notice</strong>We install <code>langchain-openai</code>, not <code>langchain-deepseek</code> — because Ollama speaks the <em>OpenAI-compatible</em> dialect. The abstraction lesson strikes again.</p>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <h2><span class="step-number">5</span>Change the code — 3 lines</h2>
+  <p>Create <code>first_agent.py</code> and copy your Day-2 agent into it. Now compare the only part that changes:</p>
+  <pre><code># DeepSeek version (cloud)              # Local SLM version (your laptop)
+from langchain_deepseek \
+     import ChatDeepSeek                 from langchain_openai import ChatOpenAI
+
+model = ChatDeepSeek(                    model = ChatOpenAI(
+    api_key=deepseek_key,  # secret!         api_key="ollama",   # any text — nothing is secret
+    model="deepseek-chat",                   model="qwen2.5:1.5b",
+    temperature=0.7,                         base_url="http://localhost:11434/v1",
+)                                            temperature=0.7,
+                                         )</code></pre>
+  <p>Three real changes: the <strong>import/class</strong>, the <strong>model name</strong>, and the <strong>base_url</strong> pointing at your own machine. Everything else — messages, invoke, the chat loop — is untouched.</p>
+  <p>Also create a <code>.env</code> file with one line, so changing model later needs no code edit:</p>
+  <pre><code>OLLAMA_MODEL=qwen2.5:1.5b</code></pre>
+  <p>and read it in the code: <code>llm_name = os.getenv("OLLAMA_MODEL", "qwen2.5:1.5b")</code></p>
+  <p><strong>Run it:</strong></p>
+  <pre><code>python first_agent.py</code></pre>
+  <p>Chat with your fully-local agent. Unplug the Wi-Fi and chat again — it still works. 🤯</p>
+  <p class="tip"><strong>📦 Stuck? The full solution is in the repo</strong>Clone or pull the course repository — the finished code lives in <code>XIAN-Training/Day-One/agent-local-slm/</code> (the DeepSeek original is next to it in <code>agent-deepseek/</code>). Compare it with yours line by line.</p>
+</div>
+
+<!-- EXERCISE -->
+<div class="step" style="border: 2px solid var(--accent);">
+  <h2>🏆 Exercise — cloud vs laptop showdown</h2>
+  <p>You now have TWO agents: DeepSeek (cloud) and Qwen (local). Put them head to head:</p>
+  <ol>
+    <li>Ask both the same 3 questions: a fact ("capital of Australia?"), a reasoning puzzle ("If I have 3 apples and eat half of one…"), and a Chinese-language question.</li>
+    <li>Score each answer: speed, correctness, detail. Where does the small model hold up? Where does it clearly lose?</li>
+    <li>Swap models in <code>.env</code> (try <code>qwen2.5:0.5b</code> — pull it first) and feel the size/quality trade-off yourself.</li>
+    <li><strong>Discussion:</strong> when would a company choose a local SLM over a cloud LLM? (Think: privacy, cost at scale, offline factories, latency.)</li>
+  </ol>
+  <p><strong>Deliverable:</strong> your comparison table + one sentence: "I would use a local SLM when ______."</p>
+</div>
+
+<div class="card">
+  <h2>✅ What you just learned</h2>
+  <p>You installed a model server, chose a model for your hardware, understood localhost security, and switched providers with 3 lines — cloud or laptop, the software engineering stays the same. That is the whole point of this course.</p>
+  <a class="btn" href="index.html">← Back to Course Home</a>
+</div>
+
+</div>
+
+<footer>
+  Software Engineering for Gen AI · Day 2 · Lab Part 5 ·
+  <a href="https://github.com/drbahja/Software-Engineering-for-Gen-AI">Course repository</a>
+</footer>
+
+</body>
+</html>

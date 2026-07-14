@@ -22,7 +22,7 @@ Everything else (LangChain, messages, the agent loop) stays the same. Libraries 
 
 ```bash
 git clone https://github.com/drbahja/Software-Engineering-for-Gen-AI.git
-cd Software-Engineering-for-Gen-AI/XIAN-Training/Day-One
+cd Software-Engineering-for-Gen-AI/XIAN-Training/Day-One/agent-deepseek
 ```
 
 Or download the ZIP from GitHub (green **Code** button → Download ZIP) and unzip it.
