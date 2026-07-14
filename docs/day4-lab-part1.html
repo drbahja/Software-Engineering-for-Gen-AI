@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 · Lab Part 4 — The Price of Intelligence</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  details { background: #f1f5f9; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--primary-dark); }
+  details[open] summary { margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Course Home</a>
+  
+</div>
+
+<div class="hero">
+  <span class="badge">Day 4 · Lab · Part 1 · ~40 min</span>
+  <h1>The Price of Intelligence 💰</h1>
+  <p>What does it really cost to train a model like GPT-4 or DeepSeek? Research it — and learn why almost nobody trains from scratch.</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <h2>The scenario</h2>
+  <p>You are consultants advising a mid-size tech company that wants to build a generative AI system. The client asks: <strong>"What would it take to train a model like GPT-4 from scratch — and is that financially realistic for us?"</strong></p>
+  <p>Your job: research the real numbers and deliver an evidence-based answer.</p>
+</div>
+
+<div class="card">
+  <h2>How to research like a consultant (10 min)</h2>
+  <ol>
+    <li><strong>Pick ONE frontier model</strong> to investigate: GPT-3, GPT-4, Gemini 1.5, Claude 3 — or, very relevant here, <strong>DeepSeek-V3/R1</strong> (famous for training at a fraction of US costs!).</li>
+    <li><strong>Search for evidence</strong>, not opinions. Good queries: <code>"GPT-4 training cost estimate"</code>, <code>"DeepSeek V3 training cost 5.5 million"</code>, <code>"[model] GPUs used training"</code>. Good sources: company technical reports, Epoch AI, Stanford AI Index, reputable tech press.</li>
+    <li><strong>Record the source next to every number.</strong> A number without a source is a rumour. If sources disagree, write the range.</li>
+    <li><strong>Distinguish one-time vs ongoing costs:</strong> training happens once; inference (serving users) costs money every single day.</li>
+  </ol>
+  <p class="tip"><strong>💡 Worked example row</strong><em>Model: DeepSeek-V3 · Estimated training compute cost: ~$5.6M (official technical report, widely debated) · Chips: ~2,048 × NVIDIA H800 · Note: excludes staff, research, prior experiments — the "true" total is higher.</em> See how each claim carries its source and a caveat? That's the standard.</p>
+</div>
+
+<!-- EXERCISE -->
+<div class="step" style="border: 2px solid var(--accent);">
+  <h2>🏆 Exercise — build the cost briefing (25 min, in pairs)</h2>
+  <p>Fill this table for your chosen model. Estimates and ranges are fine — <strong>sources are mandatory</strong>.</p>
+  <table>
+    <tr><th>Aspect</th><th>What to find</th><th>Your findings + source</th></tr>
+    <tr><td>Total training cost</td><td>Publicly available figures or best estimates</td><td></td></tr>
+    <tr><td>Infrastructure &amp; compute</td><td>Which chips (A100? H100? H800?), how many, cloud or own datacenter</td><td></td></tr>
+    <tr><td>Talent &amp; personnel</td><td>What teams are involved (researchers, MLOps, alignment, engineers)</td><td></td></tr>
+    <tr><td>Energy &amp; location</td><td>Where trained, estimated power/energy footprint</td><td></td></tr>
+    <tr><td>Ongoing operational cost</td><td>Estimated daily/monthly cost of serving users (inference)</td><td></td></tr>
+  </table>
+  <p><strong>Then answer the client's question in 2 sentences:</strong> should a mid-size company train from scratch? What should they do instead?</p>
+
+  <details>
+    <summary>🔓 Reveal reference figures (GPT-scale, from the lecture)</summary>
+    <table>
+      <tr><th>Category</th><th>Estimated cost</th><th>Notes</th></tr>
+      <tr><td>Total training cost</td><td>$63M – $100M+</td><td>Compute, staff, infrastructure, energy; Sam Altman confirmed &gt;$100M for GPT-4</td></tr>
+      <tr><td>GPU hardware (CapEx)</td><td>~$800M purchase</td><td>Tens of thousands of NVIDIA A100s; usually amortized (~$40M)</td></tr>
+      <tr><td>Compute (training)</td><td>~$63M – $78M</td><td>Cloud or in-house clusters</td></tr>
+      <tr><td>Staff &amp; research</td><td>~30–40% of total</td><td>ML engineers, researchers, alignment, MLOps</td></tr>
+      <tr><td>Interconnect &amp; servers</td><td>~15–22% of total</td><td>High-speed networking, non-GPU servers</td></tr>
+      <tr><td>Energy</td><td>~2–6% of total</td><td>Varies by region and efficiency</td></tr>
+      <tr><td>Cooling water</td><td>~0.5 L per query</td><td>Datacenter cooling at inference scale</td></tr>
+      <tr><td>Inference (daily ops)</td><td>~$700K/day</td><td>Serving ChatGPT globally</td></tr>
+    </table>
+    <p><strong>The consultant's answer:</strong> training from scratch is for a handful of companies on Earth. Everyone else <em>fine-tunes existing models or builds on top of APIs</em> (prompting, RAG, agents) — exactly the skills of this course. Even DeepSeek's famous "$5.6M" run sits on top of hundreds of millions in accumulated hardware and research.</p>
+  </details>
+
+  <p class="tip"><strong>💡 Discussion to close the day</strong>DeepSeek claims ~50× cheaper training than GPT-4 estimates. What does that mean for who can afford to compete in AI — and for what YOU can build with the API access you already have?</p>
+</div>
+
+<div class="card">
+  <h2>✅ What you just practised</h2>
+  <p>Evidence-based cost research and the single most important strategic fact in Gen AI: <strong>build on top of models, don't train them</strong>. That's exactly what we do for the rest of the course.</p>
+  <a class="btn" href="index.html">← Back to Course Home</a>
+</div>
+
+</div>
+
+<footer>
+  Software Engineering for Gen AI · Day 4 · Lab Part 1 ·
+  <a href="https://github.com/drbahja/Software-Engineering-for-Gen-AI">Course repository</a>
+</footer>
+
+</body>
+</html>

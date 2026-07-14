@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 3 Slides — AI Project Planning and Team</title>
+<title>Day 4 Slides — Agile, Risk and the Cost of AI</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
@@ -27,27 +27,27 @@
   <a href="index.html">← Course Home</a>
   
   
-  <strong>Day 3 — AI Project Planning and Team (slides 1–41)</strong>
-  <a href="slides/day3/Day3-Slides.pdf" download>⬇ PDF</a>
+  <strong>Day 4 — Agile, CRISP-DM, Risk &amp; Budgeting (slides 42–74)</strong>
+  <a href="slides/day4/Day4-Slides.pdf" download>⬇ PDF</a>
   <button class="btn" onclick="goFull()">⛶ Fullscreen</button>
-  <span class="counter"><span id="cur">1</span> / <span id="total">41</span></span>
+  <span class="counter"><span id="cur">1</span> / <span id="total">33</span></span>
 </div>
 
 <div class="stage">
-  <img id="slide" src="slides/day3/s-01.jpg" alt="Slide">
+  <img id="slide" src="slides/day4/s-01.jpg" alt="Slide">
   <div class="nav prev" onclick="step(-1)" title="Previous (←)"></div>
   <div class="nav next" onclick="step(1)" title="Next (→ or space)"></div>
   <div class="hint" id="hint">← → arrow keys · click left/right side · F for fullscreen</div>
 </div>
 
 <script>
-  const TOTAL = 41;
+  const TOTAL = 33;
   let i = 1;
   const img = document.getElementById("slide");
   const cur = document.getElementById("cur");
   document.getElementById("total").textContent = TOTAL;
 
-  const src = n => "slides/day3/s-" + String(n).padStart(2, "0") + ".jpg";
+  const src = n => "slides/day4/s-" + String(n).padStart(2, "0") + ".jpg";
   function show(n) {
     i = Math.min(TOTAL, Math.max(1, n));
     img.src = src(i);
