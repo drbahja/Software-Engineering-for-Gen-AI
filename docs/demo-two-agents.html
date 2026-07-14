@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — One Agent, Two Brains: Cloud vs Local</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Course Home</a>
+  <a href="day2-lab-part4.html">Lab Part 4 (build it)</a>
+  <a href="day2-lab-part5.html">Lab Part 5 (local SLM)</a>
+</div>
+
+<div class="hero">
+  <span class="badge">Day 2 · Live Demo · ~20 min</span>
+  <h1>One Agent, Two Brains 🧠</h1>
+  <p>The <em>same</em> agent code, run two ways: with a cloud LLM (DeepSeek) and with a local SLM on your own laptop (Ollama). Follow along step by step.</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <h2>The two projects</h2>
+  <p>Inside the course repository, the <code>Day-One</code> folder contains <strong>two versions of the same agent</strong>:</p>
+  <div class="file-tree">XIAN-Training/Day-One/
+├── agent-deepseek/      ← Brain in the CLOUD (DeepSeek API)
+│   ├── first_agent.py       terminal chat
+│   ├── streamlit_app.py     web app
+│   ├── requirements.txt
+│   └── .env.example         needs DEEPSEEK_API_KEY
+└── agent-local-slm/     ← Brain on YOUR LAPTOP (Ollama)
+    ├── first_agent.py       terminal chat
+    ├── streamlit_app.py     web app
+    ├── requirements.txt
+    └── .env.example         just picks the model — no key!</div>
+  <p>Same LangChain code, same chat loop, same web UI. The only real difference is <strong>where the model lives</strong>:</p>
+  <table>
+    <tr><th></th><th>☁️ agent-deepseek</th><th>💻 agent-local-slm</th></tr>
+    <tr><td>Model</td><td><code>deepseek-chat</code> (huge, smart)</td><td><code>qwen2.5:1.5b</code> (small, fast)</td></tr>
+    <tr><td>Runs on</td><td>DeepSeek's servers</td><td>your own machine via Ollama</td></tr>
+    <tr><td>Needs internet?</td><td>Yes</td><td>No — works offline</td></tr>
+    <tr><td>Needs API key?</td><td>Yes (<code>DEEPSEEK_API_KEY</code>)</td><td>No</td></tr>
+    <tr><td>Cost</td><td>pay per token</td><td>free</td></tr>
+    <tr><td>Privacy</td><td>questions go to the cloud</td><td>nothing leaves your laptop</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Before you start (once per laptop)</h2>
+  <p>Get the code and open it in VS Code:</p>
+  <pre><code>git clone https://github.com/drbahja/Software-Engineering-for-Gen-AI.git
+cd Software-Engineering-for-Gen-AI</code></pre>
+  <p class="tip">💡 Already cloned it in an earlier lab? Just run <code>git pull</code> to get the latest version.</p>
+</div>
+
+<!-- ================= PROJECT A ================= -->
+<div class="card">
+  <h2>Project A — ☁️ Agent with DeepSeek (cloud)</h2>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">1</span>Go into the project and create its virtual environment</h2>
+  <pre><code>cd XIAN-Training/Day-One/agent-deepseek
+
+# Windows
+python -m venv .venv
+.venv\Scripts\activate
+
+# macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate</code></pre>
+  <p>You should see <code>(.venv)</code> at the start of your terminal line.</p>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">2</span>Install the libraries</h2>
+  <pre><code>pip install -r requirements.txt</code></pre>
+  <p class="warn">⚠️ Slow in class? Use the Tsinghua mirror:<br><code>pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple</code></p>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">3</span>Add the API key</h2>
+  <p>Copy <code>.env.example</code> to a new file named exactly <code>.env</code>, then paste the key your instructor gave you:</p>
+  <pre><code># .env
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxx</code></pre>
+  <p class="warn">⚠️ Never share the key or commit <code>.env</code> to GitHub — <code>.gitignore</code> already blocks it.</p>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">4</span>Run the terminal version</h2>
+  <pre><code>python first_agent.py</code></pre>
+  <p>Ask it something — <em>"Who was the first computer scientist?"</em> — then type <code>exit</code> to quit.</p>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">5</span>Run the web version</h2>
+  <pre><code>streamlit run streamlit_app.py</code></pre>
+  <p>Your browser opens at <code>http://localhost:8501</code>. Same agent, now with a text box and a button. Press <code>Ctrl+C</code> in the terminal to stop it.</p>
+</div>
+
+<!-- ================= PROJECT B ================= -->
+<div class="card">
+  <h2>Project B — 💻 Agent with a local SLM (Ollama)</h2>
+  <p>Now the same agent, but the brain moves onto your laptop. Full background in <a href="day2-lab-part5.html">Lab Part 5</a>.</p>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">1</span>Install Ollama and pull a small model</h2>
+  <p>Install Ollama from <a href="https://ollama.com">ollama.com</a> (see <a href="day2-lab-part5.html">Lab Part 5</a> for laptop-size advice), then:</p>
+  <pre><code>ollama pull qwen2.5:1.5b
+ollama list        # the model should appear here</code></pre>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">2</span>Set up this project's environment</h2>
+  <p>Open a <strong>new terminal</strong> (or <code>deactivate</code> the previous venv — each project has its own):</p>
+  <pre><code>cd XIAN-Training/Day-One/agent-local-slm
+
+# Windows
+python -m venv .venv
+.venv\Scripts\activate
+
+# macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements.txt</code></pre>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">3</span>Configure — no key needed!</h2>
+  <pre><code># Windows
+copy .env.example .env
+
+# macOS / Linux
+cp .env.example .env</code></pre>
+  <p>The <code>.env</code> only chooses which local model to use (<code>OLLAMA_MODEL=qwen2.5:1.5b</code>). No secret, nothing to protect — that is the point of local models.</p>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">4</span>Run the terminal version</h2>
+  <pre><code>python first_agent.py</code></pre>
+  <p>Notice: answers appear <em>without internet</em>. Turn Wi-Fi off and try it — it still works.</p>
+</div>
+
+<div class="step">
+  <h2><span class="step-number">5</span>Run the web version</h2>
+  <pre><code>streamlit run streamlit_app.py</code></pre>
+  <p>Same UI as Project A at <code>http://localhost:8501</code> — but look at the caption under the title: the model is running 100% on this laptop.</p>
+</div>
+
+<div class="card">
+  <h2>What to compare during the demo 🔍</h2>
+  <ul>
+    <li><strong>Quality</strong> — ask both the same question. The cloud model knows more and reasons better; the SLM is shallower but instant and free.</li>
+    <li><strong>Speed</strong> — the SLM often answers <em>faster</em> (no network round-trip).</li>
+    <li><strong>The code</strong> — open both <code>first_agent.py</code> files side by side. Only the model setup differs; the agent logic is identical. Swapping the brain is a one-line decision.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Troubleshooting</h2>
+  <table>
+    <tr><th>Problem</th><th>Fix</th></tr>
+    <tr><td><code>ModuleNotFoundError</code></td><td>Is <code>(.venv)</code> showing? Activate the venv of <em>this</em> project and re-run <code>pip install -r requirements.txt</code>.</td></tr>
+    <tr><td><code>DEEPSEEK_API_KEY not found</code></td><td>The file must be named exactly <code>.env</code>, inside <code>agent-deepseek/</code>, key pasted with no spaces or quotes.</td></tr>
+    <tr><td>"Could not reach Ollama"</td><td>Is the Ollama app running (llama icon)? Did <code>ollama pull</code> finish? Check with <code>ollama list</code>.</td></tr>
+    <tr><td>Port 8501 already in use</td><td>Another Streamlit is running — stop it with <code>Ctrl+C</code>, or run with <code>--server.port 8502</code>.</td></tr>
+    <tr><td>pip very slow</td><td>Use the Tsinghua mirror (Project A, step 2).</td></tr>
+  </table>
+</div>
+
+<div class="card" style="text-align:center;">
+  <a class="btn" href="day2-lab-part4.html">Build the agent yourself → Lab Part 4</a>
+</div>
+
+</div>
+
+</body>
+</html>
