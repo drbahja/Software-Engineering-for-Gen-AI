@@ -49,27 +49,46 @@
 
 <!-- STEP 2 -->
 <div class="step">
-  <h2><span class="step-number">2</span>Check your tools</h2>
-  <p>You need three tools. They may already be installed — check first:</p>
+  <h2><span class="step-number">2</span>Install your code editor (IDE)</h2>
+  <p>You can use <strong>any IDE you like</strong> — PyCharm, Cursor, Sublime, or another editor you already know. But we <strong>recommend VS Code</strong>: it is free, light, works the same on Windows and macOS, and every instruction in this course is written for it.</p>
+
+  <h3>Install VS Code, step by step</h3>
+  <ol>
+    <li>Go to <a href="https://code.visualstudio.com">code.visualstudio.com</a> and click the big blue <strong>Download</strong> button — it detects your system automatically (Windows / macOS).</li>
+    <li><strong>Windows:</strong> run the downloaded <code>.exe</code> → accept the agreement → keep clicking <em>Next</em> (the defaults are fine) → on the last screen tick <em>"Add to PATH"</em> if shown → <em>Install</em> → <em>Finish</em>.</li>
+    <li><strong>macOS:</strong> open the downloaded <code>.zip</code> → drag <strong>Visual Studio Code</strong> into the <strong>Applications</strong> folder → open it from Applications (click <em>Open</em> if macOS asks for confirmation).</li>
+    <li>First launch: choose a theme if asked, then close the Welcome tab. Done!</li>
+  </ol>
+
+  <h3>Install the Python extension (2 clicks)</h3>
+  <ol>
+    <li>In VS Code, click the <strong>Extensions</strong> icon in the left sidebar (four little squares) — or press <code>Ctrl+Shift+X</code> (<code>Cmd+Shift+X</code> on Mac).</li>
+    <li>Type <strong>Python</strong> in the search box → the first result (by Microsoft) → click <strong>Install</strong>. This gives you syntax colours, error hints, and the Run button.</li>
+  </ol>
+
+  <h3>Check the other two tools</h3>
+  <p>Open the terminal inside VS Code (<strong>Terminal → New Terminal</strong>) and type each check command:</p>
   <table>
-    <tr><th>Tool</th><th>What it is</th><th>Check with</th><th>Get it</th></tr>
-    <tr><td><strong>VS Code</strong></td><td>Your code editor</td><td>Open it</td><td><a href="https://code.visualstudio.com">code.visualstudio.com</a></td></tr>
+    <tr><th>Tool</th><th>What it is</th><th>Check with</th><th>If missing, get it</th></tr>
     <tr><td><strong>Python 3.10+</strong></td><td>Runs your code</td><td><code>python3 --version</code></td><td><a href="https://www.python.org/downloads/">python.org</a></td></tr>
     <tr><td><strong>Git</strong></td><td>Downloads &amp; tracks code</td><td><code>git --version</code></td><td><a href="https://git-scm.com">git-scm.com</a></td></tr>
   </table>
-  <p>To check: open a terminal (in VS Code: <strong>Terminal → New Terminal</strong>) and type the check commands.</p>
-  <p class="warn"><strong>⚠️ Windows users</strong>When installing Python, tick the box <em>"Add Python to PATH"</em> — it saves you a lot of pain later. On Windows use <code>python</code> instead of <code>python3</code> in all commands.</p>
+  <p class="warn"><strong>⚠️ Windows users</strong>When installing Python, tick the box <em>"Add Python to PATH"</em> — it saves you a lot of pain later. On Windows use <code>python</code> instead of <code>python3</code> in all commands, and after installing Python or Git, close and reopen VS Code so the terminal notices them.</p>
+  <p class="tip"><strong>💡 Using another IDE?</strong>No problem — everything in this lab still works. Wherever we say "VS Code terminal", use your IDE's terminal or the system one (Windows: PowerShell · macOS: Terminal app). You are responsible for knowing your own editor, though — the instructor debugs VS Code only!</p>
 </div>
 
 <!-- STEP 3 -->
 <div class="step">
-  <h2><span class="step-number">3</span>Create your workspace folder</h2>
-  <p>Professional developers keep their projects organised in one place. Let's do the same:</p>
+  <h2><span class="step-number">3</span>Create a new project</h2>
+  <p>In VS Code, a "project" is simply a <strong>folder that you open</strong>. Professional developers keep all projects organised in one place — let's do it properly:</p>
   <ol>
-    <li>Create a folder on your computer called <code>genai-course</code> (Desktop or Documents is fine).</li>
-    <li>Open VS Code → <strong>File → Open Folder…</strong> → select <code>genai-course</code>.</li>
-    <li>Open the terminal inside VS Code: <strong>Terminal → New Terminal</strong>. The terminal is already "inside" your folder — this is where you will type commands.</li>
+    <li>Create a folder for all your coding projects: open your file manager (Explorer / Finder) and make a folder called <code>genai-course</code> in Documents or on the Desktop.</li>
+    <li>In VS Code: <strong>File → Open Folder…</strong> → select <code>genai-course</code> → <em>Open</em>. If a blue bar asks <em>"Do you trust the authors?"</em> click <strong>Yes, I trust</strong> — you are the author!</li>
+    <li>Look at the left sidebar: the <strong>Explorer</strong> now shows your (empty) folder. Any file you create appears here.</li>
+    <li>Open the built-in terminal: <strong>Terminal → New Terminal</strong> (or <code>Ctrl+`</code>). Notice it opens already "inside" your folder — this is where you will type commands in the next step.</li>
+    <li>Quick test that everything works: type <code>python3 --version</code> (Windows: <code>python --version</code>) and press Enter. If you see a version number, your project is ready. 🎉</li>
   </ol>
+  <p class="tip"><strong>💡 New project = new folder</strong>Whenever you start something new, repeat this: make a folder → File → Open Folder. One project per folder keeps your work clean — and it is exactly how the pros do it.</p>
 </div>
 
 <!-- STEP 4 -->
